@@ -3,48 +3,49 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Cricket Scoreboard with Toss</title>
+  <title>Cricket Score Tracker</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <div class="container">
 
-    <h1>Cricket Scoreboard</h1>
-
-    <!-- Toss Section -->
-    <section id="coinFlipSection" class="coin-flip-section">
-      <button id="flipCoinBtn" class="btn-primary">Flip a Coin</button>
-      <div id="coin" class="coin" aria-hidden="true">
-        <div class="side heads">Heads</div>
-        <div class="side tails">Tails</div>
-      </div>
-      <div id="coinResult" class="coin-result" role="status" aria-live="polite"></div>
+    <!-- Coin Flip Section -->
+    <section id="coinSection" class="section">
+      <h2>Flip a Coin</h2>
+      <div id="coin" class="coin">🪙</div>
+      <button id="flipCoinBtn" class="btn-primary">Flip Coin</button>
+      <div id="coinResult" class="coin-result"></div>
     </section>
 
-    <!-- Inputs Section -->
-    <section id="inputSection" class="hidden">
-      <div class="form-group">
-        <label for="batsman1Name">Batsman 1 (Striker) <span class="required">*</span>:</label>
-        <input type="text" id="batsman1Name" placeholder="Enter striker's name" required />
-      </div>
-      <div class="form-group">
-        <label for="batsman2Name">Batsman 2 (Non-Striker) (optional):</label>
-        <input type="text" id="batsman2Name" placeholder="Enter non-striker's name" />
-      </div>
-      <div class="form-group">
-        <label for="bowlerName">Bowler <span class="required">*</span>:</label>
-        <input type="text" id="bowlerName" placeholder="Enter bowler's name" required />
-      </div>
-      <button id="startMatchBtn" class="btn-primary">Start Match</button>
+    <!-- Player Input Section -->
+    <section id="inputSection" class="section hidden">
+      <h2>Enter Player Names</h2>
+      <form id="playerForm" novalidate>
+        <div class="form-group">
+          <label for="batsman1Name">Batsman 1 (Striker) <span class="required">*</span>:</label>
+          <input type="text" id="batsman1Name" placeholder="Enter batsman 1 name" required />
+        </div>
+        <div class="form-group">
+          <label for="batsman2Name">Batsman 2 (Non-Striker) (Optional):</label>
+          <input type="text" id="batsman2Name" placeholder="Enter batsman 2 name" />
+        </div>
+        <div class="form-group">
+          <label for="bowlerName">Bowler <span class="required">*</span>:</label>
+          <input type="text" id="bowlerName" placeholder="Enter bowler name" required />
+        </div>
+        <button type="button" id="startMatchBtn" class="btn-primary">Start Match</button>
+      </form>
     </section>
 
-    <!-- Scoreboard Section -->
-    <section id="scoreSection" class="hidden">
+    <!-- Score Section -->
+    <section id="scoreSection" class="section hidden">
       <h2>Live Score</h2>
-      <div id="scoreDisplay" class="score-display">0 / 0</div>
-      <div id="oversDisplay" class="overs-display">0.0</div>
+      <div class="live-info">
+        <div><strong>Score:</strong> <span id="scoreDisplay">0 / 0</span></div>
+        <div><strong>Overs:</strong> <span id="oversDisplay">0.0</span></div>
+      </div>
 
-      <div class="player-stats">
+      <div class="players-info">
         <div>
           <strong>Batsman 1 (Striker):</strong> <span id="batsman1Display"></span><br />
           Runs: <span id="batsman1Runs">0</span> &nbsp; Balls: <span id="batsman1Balls">0</span>
@@ -55,24 +56,24 @@
         </div>
         <div>
           <strong>Bowler:</strong> <span id="bowlerDisplay"></span><br />
-          Runs conceded: <span id="bowlerRuns">0</span> &nbsp; Wickets: <span id="bowlerWickets">0</span>
+          Runs: <span id="bowlerRuns">0</span> &nbsp; Wickets: <span id="bowlerWickets">0</span>
         </div>
       </div>
 
-      <div class="score-buttons">
+      <div class="scoreButtons">
         <button onclick="addRuns(0)">0</button>
         <button onclick="addRuns(1)">1</button>
         <button onclick="addRuns(2)">2</button>
         <button onclick="addRuns(3)">3</button>
         <button onclick="addRuns(4)">4</button>
         <button onclick="addRuns(6)">6</button>
-        <button onclick="addExtra('wide')">Wide</button>
-        <button onclick="addExtra('noball')">No Ball</button>
+        <button onclick="addExtra('Wide')">Wide</button>
+        <button onclick="addExtra('No Ball')">No Ball</button>
         <button onclick="addWicket()">Wicket</button>
       </div>
 
       <h3>Ball-by-Ball History</h3>
-      <table class="historyTable" aria-label="Ball-by-ball history">
+      <table class="historyTable">
         <thead>
           <tr><th>Over</th><th>Ball</th><th>Event</th><th>Score</th></tr>
         </thead>

@@ -1,51 +1,36 @@
+/* Base styles */
 body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   background: #f9fafb;
   color: #333;
   margin: 0;
   padding: 20px;
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
 }
 
 .container {
-  width: 100%;
   max-width: 700px;
+  margin: 0 auto;
   background: white;
-  box-shadow: 0 0 15px rgba(0,0,0,0.1);
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
   border-radius: 8px;
-  padding: 25px 30px;
-}
-
-h1 {
-  text-align: center;
-  margin-bottom: 1.5rem;
+  padding: 20px;
 }
 
 h2 {
-  margin-top: 0;
-  margin-bottom: 1rem;
   text-align: center;
+  margin-bottom: 1rem;
 }
 
 .form-group {
   margin-bottom: 15px;
 }
 
-label {
-  display: block;
-  font-weight: 600;
-  margin-bottom: 6px;
-}
-
 input[type="text"] {
   width: 100%;
   padding: 8px 12px;
-  font-size: 1rem;
-  border-radius: 5px;
   border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 1rem;
   box-sizing: border-box;
 }
 
@@ -53,19 +38,14 @@ input[type="text"] {
   color: red;
 }
 
-.btn-primary, .btn-danger {
+button {
   cursor: pointer;
   border: none;
-  border-radius: 6px;
+  border-radius: 4px;
+  padding: 10px 20px;
   font-weight: 600;
-  padding: 12px 24px;
-  font-size: 1.1rem;
-  display: block;
-  margin: 15px auto 0;
-  width: 100%;
-  max-width: 300px;
-  -webkit-user-select: none;
-  user-select: none;
+  margin-top: 10px;
+  transition: background-color 0.3s ease;
 }
 
 .btn-primary {
@@ -73,159 +53,193 @@ input[type="text"] {
   color: white;
 }
 
-.btn-primary:hover:not(:disabled) {
+.btn-primary:hover {
   background-color: #004a9f;
-}
-
-.btn-primary:disabled {
-  background-color: #94b8e0;
-  cursor: not-allowed;
 }
 
 .btn-danger {
   background-color: #dc3545;
   color: white;
+  width: 100%;
+  margin-top: 15px;
 }
 
 .btn-danger:hover {
   background-color: #a71d2a;
 }
 
+.section {
+  margin-bottom: 2rem;
+}
+
 .hidden {
-  display: none !important;
+  display: none;
 }
 
-.score-display {
-  font-size: 2.4rem;
-  font-weight: 700;
+.coin {
+  font-size: 100px;
+  margin: 20px auto;
+  width: 100px;
+  height: 100px;
+  line-height: 100px;
   text-align: center;
-  margin-bottom: 5px;
-}
-
-.overs-display {
-  text-align: center;
-  font-size: 1.25rem;
-  margin-bottom: 15px;
-  color: #555;
-}
-
-.player-stats {
-  display: flex;
-  justify-content: space-around;
-  margin-bottom: 25px;
-  flex-wrap: wrap;
-  gap: 15px;
-  font-size: 1.05rem;
-}
-
-.player-stats > div {
-  flex: 1 1 30%;
-  background: #f1f5f9;
-  padding: 15px;
-  border-radius: 8px;
-  text-align: center;
-  min-width: 160px;
-  box-shadow: inset 0 0 8px rgba(0,0,0,0.05);
-}
-
-.score-buttons {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 12px;
-  margin-bottom: 20px;
-}
-
-.score-buttons button {
-  background-color: #007bff;
-  border: none;
-  border-radius: 6px;
-  color: white;
-  font-size: 1.15rem;
-  padding: 12px 20px;
-  min-width: 70px;
-  cursor: pointer;
+  border-radius: 50%;
+  background: linear-gradient(45deg, #eee 25%, #ddd 75%);
+  box-shadow: 0 0 20px #aaa;
   -webkit-user-select: none;
   user-select: none;
-  transition: background-color 0.2s ease;
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
+  transition: transform 2s ease;
+  margin-bottom: 10px;
 }
 
-.score-buttons button:hover {
+.coin.flip-animation {
+  animation: flipCoin 2s forwards;
+}
+
+@keyframes flipCoin {
+  0% { transform: rotateY(0); }
+  100% { transform: rotateY(1080deg); }
+}
+
+.coin-result {
+  text-align: center;
+  font-size: 1.2rem;
+  margin-top: 10px;
+}
+
+.live-info {
+  display: flex;
+  justify-content: space-between;
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.players-info {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 1rem;
+  font-size: 1rem;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.players-info > div {
+  flex: 1 1 45%;
+  min-width: 200px;
+}
+
+.scoreButtons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+}
+
+.scoreButtons button {
+  flex: 1 1 60px;
+  padding: 12px 18px;
+  font-size: 1rem;
+  border-radius: 6px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  min-width: 60px;
+  max-width: 100px;
+  transition: background-color 0.3s ease;
+}
+
+.scoreButtons button:hover {
   background-color: #0056b3;
 }
 
 .historyTable {
   width: 100%;
   border-collapse: collapse;
-  margin-top: 10px;
-  font-size: 0.95rem;
+  margin-top: 15px;
+  font-size: 0.9rem;
+  overflow-x: auto;
+  display: block;
+  max-height: 200px;
+  scroll-behavior: smooth;
+}
+
+.historyTable thead {
+  background-color: #f1f1f1;
+  position: sticky;
+  top: 0;
+  z-index: 1;
 }
 
 .historyTable th,
 .historyTable td {
   border: 1px solid #ccc;
-  padding: 8px 10px;
+  padding: 8px;
   text-align: center;
+  white-space: nowrap;
 }
 
-.coin-flip-section {
-  text-align: center;
-  margin-bottom: 30px;
-  position: relative;
+/* Responsive Styles */
+
+@media (max-width: 768px) {
+  .container {
+    max-width: 95%;
+    padding: 15px;
+  }
+
+  .live-info {
+    flex-direction: column;
+    font-size: 1.1rem;
+    gap: 5px;
+  }
+
+  .players-info > div {
+    flex: 1 1 100%;
+    min-width: auto;
+  }
+
+  .scoreButtons button {
+    flex: 1 1 45%;
+    max-width: none;
+  }
+
+  .coin {
+    font-size: 80px;
+    width: 80px;
+    height: 80px;
+    line-height: 80px;
+  }
 }
 
-.coin {
-  margin: 20px auto 10px;
-  width: 120px;
-  height: 120px;
-  perspective: 1000px;
-  cursor: default;
-  -webkit-user-select: none;
-  user-select: none;
-  position: relative;
-}
+@media (max-width: 480px) {
+  button {
+    padding: 10px 12px;
+    font-size: 0.9rem;
+  }
 
-.side {
-  position: absolute;
-  width: 120px;
-  height: 120px;
-  border-radius: 50%;
-  line-height: 120px;
-  font-size: 2rem;
-  font-weight: 700;
-  color: white;
-  text-shadow: 0 0 4px rgba(0,0,0,0.5);
-  box-shadow: inset 0 0 20px rgba(255,255,255,0.3);
-  backface-visibility: hidden;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  -webkit-user-select: none;
-  user-select: none;
-}
+  .coin {
+    font-size: 60px;
+    width: 60px;
+    height: 60px;
+    line-height: 60px;
+  }
 
-.heads {
-  background: linear-gradient(135deg, #4caf50, #388e3c);
-}
+  input[type="text"] {
+    font-size: 0.9rem;
+  }
 
-.tails {
-  background: linear-gradient(135deg, #2196f3, #1565c0);
-  transform: rotateY(180deg);
-}
+  .live-info {
+    font-size: 1rem;
+  }
 
-.flip-animation {
-  animation: coinFlip 2s ease-in-out forwards;
-}
+  .scoreButtons button {
+    flex: 1 1 100%;
+  }
 
-@keyframes coinFlip {
-  0%   { transform: rotateY(0deg); }
-  100% { transform: rotateY(1080deg); }
-}
-
-.coin-result {
-  font-size: 1.4rem;
-  font-weight: 600;
-  margin-top: 10px;
-  min-height: 1.5em;
-  color: #333;
+  .players-info {
+    font-size: 0.9rem;
+  }
 }
