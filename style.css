@@ -1,0 +1,155 @@
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: #f9fafb;
+  color: #333;
+  margin: 0;
+  padding: 20px;
+}
+
+.container {
+  max-width: 700px;
+  margin: 0 auto;
+  background: white;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  border-radius: 8px;
+  padding: 20px;
+}
+
+h2 {
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+input[type="text"],
+input[type="number"],
+select {
+  width: 100%;
+  padding: 8px 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 1rem;
+}
+
+.playersInput {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.playersList {
+  margin-top: 10px;
+  max-height: 150px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  padding: 8px;
+  border-radius: 4px;
+  list-style: none;
+}
+
+.playersList li {
+  padding: 4px 0;
+  border-bottom: 1px solid #eee;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  border-radius: 4px;
+  padding: 10px 20px;
+  font-weight: 600;
+}
+
+.btn-primary {
+  background-color: #0069d9;
+  color: white;
+}
+
+.btn-primary:hover {
+  background-color: #004a9f;
+}
+
+.btn-secondary {
+  background-color: #6c757d;
+  color: white;
+}
+
+.btn-secondary:hover {
+  background-color: #565e64;
+}
+
+.btn-danger {
+  background-color: #dc3545;
+  color: white;
+  width: 100%;
+  margin-top: 15px;
+}
+
+.btn-danger:hover {
+  background-color: #a71d2a;
+}
+
+.form-actions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.step {
+  display: none;
+}
+
+.step.active {
+  display: block;
+}
+
+.liveInfo {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 1rem;
+  font-size: 1.1rem;
+}
+
+.playerStats {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 1rem;
+}
+
+.playerCard {
+  background: #f1f5f9;
+  padding: 10px;
+  border-radius: 6px;
+  width: 30%;
+  text-align: center;
+}
+
+.scoreButtons button {
+  margin: 5px 5px 10px 0;
+  padding: 12px 18px;
+  font-size: 1rem;
+  border-radius: 6px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+}
+
+.scoreButtons button:hover {
+  background-color: #0056b3;
+}
+
+.historyTable {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 15px;
+}
+
+.historyTable th,
+.historyTable td {
+  border: 1px solid #ccc;
+  padding: 8px;
+  text-align: center;
+}
