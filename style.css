@@ -34,27 +34,6 @@ select {
   font-size: 1rem;
 }
 
-.playersInput {
-  display: flex;
-  justify-content: space-between;
-  gap: 20px;
-}
-
-.playersList {
-  margin-top: 10px;
-  max-height: 150px;
-  overflow-y: auto;
-  border: 1px solid #ddd;
-  padding: 8px;
-  border-radius: 4px;
-  list-style: none;
-}
-
-.playersList li {
-  padding: 4px 0;
-  border-bottom: 1px solid #eee;
-}
-
 button {
   cursor: pointer;
   border: none;
@@ -67,7 +46,6 @@ button {
   background-color: #0069d9;
   color: white;
 }
-
 .btn-primary:hover {
   background-color: #004a9f;
 }
@@ -76,7 +54,6 @@ button {
   background-color: #6c757d;
   color: white;
 }
-
 .btn-secondary:hover {
   background-color: #565e64;
 }
@@ -87,7 +64,6 @@ button {
   width: 100%;
   margin-top: 15px;
 }
-
 .btn-danger:hover {
   background-color: #a71d2a;
 }
@@ -101,7 +77,6 @@ button {
 .step {
   display: none;
 }
-
 .step.active {
   display: block;
 }
@@ -136,7 +111,6 @@ button {
   color: white;
   border: none;
 }
-
 .scoreButtons button:hover {
   background-color: #0056b3;
 }
@@ -146,7 +120,6 @@ button {
   border-collapse: collapse;
   margin-top: 15px;
 }
-
 .historyTable th,
 .historyTable td {
   border: 1px solid #ccc;
