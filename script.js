@@ -1,196 +1,179 @@
-// Variables to hold team info and match state
-let teamAName = "";
-let teamBName = "";
+let batsman1 = "";
+let batsman2 = ""; // optional
 
-let battingTeam = null;
-let bowlingTeam = null;
+let batsman1Runs = 0;
+let batsman1Balls = 0;
 
-let totalOvers = 5;
-let innings = 1;
+let batsman2Runs = 0;
+let batsman2Balls = 0;
 
-let runs = 0;
-let wickets = 0;
-let ballsInCurrentOver = 0;
-let completedOvers = 0;
+let bowler = "";
 
-let bowlerName = "";
 let bowlerRuns = 0;
 let bowlerWickets = 0;
 
+let totalRuns = 0;
+let totalWickets = 0;
+
+let ballsInCurrentOver = 0;
+let completedOvers = 0;
+
 let history = [];
 
-// DOM Elements
-const teamInputSection = document.getElementById("teamInputSection");
-const tossSection = document.getElementById("tossSection");
-const matchSection = document.getElementById("matchSection");
-const finalScoreSection = document.getElementById("finalScoreSection");
-
-const teamANameInput = document.getElementById("teamAName");
-const teamBNameInput = document.getElementById("teamBName");
-const toTossBtn = document.getElementById("toTossBtn");
-
-const flipCoinBtn = document.getElementById("flipCoinBtn");
-const tossResultP = document.getElementById("tossResult");
-const chooseBatOrBowl = document.getElementById("chooseBatOrBowl");
-const tossWinnerSpan = document.getElementById("tossWinner");
-const startMatchBtn = document.getElementById("startMatchBtn");
-
-const currentInningsDisplay = document.getElementById("currentInnings");
-const battingTeamNameDisplay = document.getElementById("battingTeamName");
-const bowlingTeamNameDisplay = document.getElementById("bowlingTeamName");
-
-const bowlerNameInput = document.getElementById("bowlerNameInput");
-const setBowlerBtn = document.getElementById("setBowlerBtn");
-const bowlerRunsDisplay = document.getElementById("bowlerRuns");
-const bowlerWicketsDisplay = document.getElementById("bowlerWickets");
-
-const scoreDisplay = document.getElementById("scoreDisplay");
-const oversDisplay = document.getElementById("oversDisplay");
-
+const scoreSection = document.getElementById("scoreSection");
 const historyBody = document.getElementById("historyBody");
+const inputSection = document.getElementById("inputSection");
+const coinFlipSection = document.getElementById("coinFlipSection");
+const coinElem = document.getElementById("coin");
+const coinResultElem = document.getElementById("coinResult");
+const flipCoinBtn = document.getElementById("flipCoinBtn");
 
-const endInningsBtn = document.getElementById("endInningsBtn");
-const resetBtn = document.getElementById("resetBtn");
-const resetMatchBtn = document.getElementById("resetMatchBtn");
-const finalScoresDiv = document.getElementById("finalScores");
+flipCoinBtn.addEventListener("click", () => {
+  coinResultElem.textContent = "";
+  coinElem.classList.remove("hidden");
+  coinElem.classList.add("flip");
+  flipCoinBtn.disabled = true;
 
-// Go to Toss section after entering team names
-toTossBtn.addEventListener("click", () => {
-  if (!teamANameInput.value.trim() || !teamBNameInput.value.trim()) {
-    alert("Please enter both team names.");
+  setTimeout(() => {
+    coinElem.classList.remove("flip");
+    const result = Math.random() < 0.5 ? "Heads" : "Tails";
+    coinResultElem.textContent = `Result: ${result}`;
+    inputSection.classList.remove("hidden");
+  }, 2000);
+});
+
+document.getElementById("setPlayersBtn").addEventListener("click", () => {
+  const b1Input = document.getElementById("batsman1Name").value.trim();
+  const b2Input = document.getElementById("batsman2Name").value.trim();
+  const bowlerInput = document.getElementById("bowlerName").value.trim();
+
+  if (!b1Input) {
+    alert("Striker name is required.");
     return;
   }
-  teamAName = teamANameInput.value.trim();
-  teamBName = teamBNameInput.value.trim();
-
-  teamInputSection.classList.add("hidden");
-  tossSection.classList.remove("hidden");
-});
-
-// Toss coin flip
-flipCoinBtn.addEventListener("click", () => {
-  const tossWinner = Math.random() < 0.5 ? teamAName : teamBName;
-  tossResultP.textContent = `${tossWinner} won the toss!`;
-  tossWinnerSpan.textContent = tossWinner;
-  chooseBatOrBowl.classList.remove("hidden");
-  startMatchBtn.disabled = false;
-});
-
-// Start match after toss decision
-startMatchBtn.addEventListener("click", () => {
-  const choice = document.querySelector('input[name="batOrBowl"]:checked').value;
-  const tossWinner = tossWinnerSpan.textContent;
-
-  if (choice === "bat") {
-    battingTeam = tossWinner;
-    bowlingTeam = tossWinner === teamAName ? teamBName : teamAName;
-  } else {
-    bowlingTeam = tossWinner;
-    battingTeam = tossWinner === teamAName ? teamBName : teamAName;
+  if (!bowlerInput) {
+    alert("Bowler name is required.");
+    return;
   }
 
-  innings = 1;
-  runs = 0;
-  wickets = 0;
+  batsman1 = b1Input;
+  batsman2 = b2Input || "";
+  bowler = bowlerInput;
+
+  batsman1Runs = 0;
+  batsman1Balls = 0;
+
+  batsman2Runs = 0;
+  batsman2Balls = 0;
+
+  bowlerRuns = 0;
+  bowlerWickets = 0;
+
+  totalRuns = 0;
+  totalWickets = 0;
+
   ballsInCurrentOver = 0;
   completedOvers = 0;
-
-  bowlerName = "";
-  bowlerRuns = 0;
-  bowlerWickets = 0;
   history = [];
 
-  updateBowlerStatsUI();
-
-  tossSection.classList.add("hidden");
-  matchSection.classList.remove("hidden");
-  finalScoreSection.classList.add("hidden");
-
   updateUI();
-});
 
-// Set bowler name
-setBowlerBtn.addEventListener("click", () => {
-  if (!bowlerNameInput.value.trim()) {
-    alert("Please enter bowler name");
-    return;
+  if (batsman2) {
+    document.getElementById("nonStrikerStatsDiv").style.display = "block";
+  } else {
+    document.getElementById("nonStrikerStatsDiv").style.display = "none";
   }
-  bowlerName = bowlerNameInput.value.trim();
-  bowlerRuns = 0;
-  bowlerWickets = 0;
-  updateBowlerStatsUI();
+
+  scoreSection.classList.remove("hidden");
 });
 
-// Add runs function
-function addRuns(run) {
-  if (inningsEnded()) return alert("Innings ended");
-
-  runs += run;
+function addRuns(runs) {
+  totalRuns += runs;
   ballsInCurrentOver++;
-  if (ballsInCurrentOver > 6) {
-    ballsInCurrentOver = 1;
-    completedOvers++;
+
+  bowlerRuns += runs;
+
+  if (batsman2) {
+    // Two batsmen mode
+    // Add runs & balls to striker (batsman1)
+    batsman1Runs += runs;
+    batsman1Balls++;
+
+    // Swap strike if runs odd
+    if (runs % 2 === 1) swapStrike();
+
+  } else {
+    // One batsman mode
+    batsman1Runs += runs;
+    batsman1Balls++;
   }
 
-  if (bowlerName) {
-    bowlerRuns += run;
-  }
-
-  updateScore(run.toString());
   checkOverCompletion();
+  addHistoryEvent(`${runs} run${runs !== 1 ? "s" : ""}`);
   updateUI();
 }
 
-// Add extras (wide, no ball)
 function addExtra(type) {
-  if (inningsEnded()) return alert("Innings ended");
+  totalRuns++;
+  addHistoryEvent(type.charAt(0).toUpperCase() + type.slice(1) + " (Extra)", true);
 
-  runs += 1;
+  bowlerRuns++;
+  // No ball count increment on extras
 
-  if (bowlerName) {
-    bowlerRuns += 1;
-  }
-
-  updateScore(type === "wide" ? "Wd" : "Nb", true);
   updateUI();
 }
 
-// Add wicket
 function addWicket() {
-  if (inningsEnded()) return alert("Innings ended");
-
-  wickets++;
+  totalWickets++;
   ballsInCurrentOver++;
-  if (ballsInCurrentOver > 6) {
-    ballsInCurrentOver = 1;
-    completedOvers++;
+
+  bowlerWickets++;
+
+  addHistoryEvent("Wicket");
+
+  if (batsman2) {
+    // If two batsmen, out striker (batsman1)
+    batsman1Runs = batsman1Runs; // runs unchanged
+    batsman1Balls++; // ball faced
+
+    // For simplicity, no next batsman, just reset striker's runs
+    batsman1Runs = 0;
+    batsman1Balls = 0;
+  } else {
+    // One batsman mode - out batsman1, end innings? For now just reset runs
+    batsman1Runs = 0;
+    batsman1Balls = 0;
   }
 
-  if (bowlerName) {
-    bowlerWickets++;
-  }
-
-  updateScore("W");
   checkOverCompletion();
   updateUI();
 }
 
-function updateScore(event, extra = false) {
-  let overNum = completedOvers;
-  let ballNum = ballsInCurrentOver;
-  if (ballsInCurrentOver === 0) {
-    overNum--;
-    ballNum = 6;
+function swapStrike() {
+  // Swap batsman1 and batsman2 stats and names
+  [batsman1, batsman2] = [batsman2, batsman1];
+  [batsman1Runs, batsman2Runs] = [batsman2Runs, batsman1Runs];
+  [batsman1Balls, batsman2Balls] = [batsman2Balls, batsman1Balls];
+}
+
+function checkOverCompletion() {
+  if (ballsInCurrentOver === 6) {
+    completedOvers++;
+    ballsInCurrentOver = 0;
+    // Swap strike at end of over if two batsmen
+    if (batsman2) swapStrike();
   }
+}
 
+function addHistoryEvent(event, isExtra = false) {
+  let ballNum = ballsInCurrentOver === 0 ? 6 : ballsInCurrentOver;
+  let overNum = ballsInCurrentOver === 0 ? completedOvers : completedOvers + 1;
   history.push({
-    innings,
-    over: overNum + 1,
+    over: overNum,
     ball: ballNum,
-    event: event + (extra ? "*" : ""),
-    score: `${runs} / ${wickets}`
+    event: event + (isExtra ? "*" : ""),
+    score: `${totalRuns} / ${totalWickets}`
   });
-
   renderHistory();
 }
 
@@ -209,123 +192,46 @@ function renderHistory() {
 }
 
 function updateUI() {
-  currentInningsDisplay.textContent = innings;
-  battingTeamNameDisplay.textContent = battingTeam;
-  bowlingTeamNameDisplay.textContent = bowlingTeam;
+  document.getElementById("liveBatsman1Name").textContent = batsman1 || "-";
+  document.getElementById("liveBatsman2Name").textContent = batsman2 || "-";
+  document.getElementById("liveBowlerName").textContent = bowler || "-";
 
-  scoreDisplay.textContent = `${runs} / ${wickets}`;
-  oversDisplay.textContent = `${completedOvers}.${ballsInCurrentOver}`;
+  document.getElementById("batsman1Runs").textContent = batsman1Runs;
+  document.getElementById("batsman1Balls").textContent = batsman1Balls;
 
-  updateBowlerStatsUI();
+  document.getElementById("batsman2Runs").textContent = batsman2Runs;
+  document.getElementById("batsman2Balls").textContent = batsman2Balls;
+
+  document.getElementById("bowlerRuns").textContent = bowlerRuns;
+  document.getElementById("bowlerWickets").textContent = bowlerWickets;
+
+  document.getElementById("scoreDisplay").textContent = `${totalRuns} / ${totalWickets}`;
+  document.getElementById("oversDisplay").textContent = `${completedOvers}.${ballsInCurrentOver}`;
 }
 
-function updateBowlerStatsUI() {
-  bowlerRunsDisplay.textContent = bowlerRuns;
-  bowlerWicketsDisplay.textContent = bowlerWickets;
-}
-
-function inningsEnded() {
-  if (completedOvers === totalOvers) return true;
-  if (wickets === 10) return true;
-  return false;
-}
-
-function checkOverCompletion() {
-  if (ballsInCurrentOver === 6) {
-    completedOvers++;
-    ballsInCurrentOver = 0;
-  }
-}
-
-endInningsBtn.addEventListener("click", () => {
-  if (!inningsEnded()) {
-    if (!confirm("Innings not complete. Do you want to end innings early?")) return;
-  }
-  if (innings === 1) {
-    // Switch innings
-    innings = 2;
-
-    // Swap teams
-    [battingTeam, bowlingTeam] = [bowlingTeam, battingTeam];
-
-    // Reset stats
-    runs = 0;
-    wickets = 0;
-    ballsInCurrentOver = 0;
-    completedOvers = 0;
-
-    bowlerName = "";
-    bowlerRuns = 0;
-    bowlerWickets = 0;
-    history = [];
-
-    updateBowlerStatsUI();
-    renderHistory();
-    updateUI();
-
-    alert(`Innings 2 started! ${battingTeam} is batting.`);
-  } else {
-    // Match complete
-    showFinalScores();
-  }
-});
-
-resetBtn.addEventListener("click", () => {
-  if (confirm("Are you sure you want to reset the match?")) {
-    resetMatch();
-  }
-});
-
-resetMatchBtn.addEventListener("click", () => {
-  resetMatch();
-});
-
-function resetMatch() {
-  teamAName = "";
-  teamBName = "";
-  battingTeam = null;
-  bowlingTeam = null;
-  innings = 1;
-
-  runs = 0;
-  wickets = 0;
-  ballsInCurrentOver = 0;
-  completedOvers = 0;
-
-  bowlerName = "";
+document.getElementById("resetBtn").addEventListener("click", () => {
+  batsman1 = "";
+  batsman2 = "";
+  batsman1Runs = 0;
+  batsman1Balls = 0;
+  batsman2Runs = 0;
+  batsman2Balls = 0;
   bowlerRuns = 0;
   bowlerWickets = 0;
+  totalRuns = 0;
+  totalWickets = 0;
+  ballsInCurrentOver = 0;
+  completedOvers = 0;
   history = [];
 
-  teamInputSection.classList.remove("hidden");
-  tossSection.classList.add("hidden");
-  matchSection.classList.add("hidden");
-  finalScoreSection.classList.add("hidden");
-
-  teamANameInput.value = "";
-  teamBNameInput.value = "";
-  tossResultP.textContent = "";
-  chooseBatOrBowl.classList.add("hidden");
-  startMatchBtn.disabled = true;
-
-  bowlerNameInput.value = "";
-  bowlerRunsDisplay.textContent = "0";
-  bowlerWicketsDisplay.textContent = "0";
-
+  document.getElementById("batsman1Name").value = "";
+  document.getElementById("batsman2Name").value = "";
+  document.getElementById("bowlerName").value = "";
+  scoreSection.classList.add("hidden");
+  inputSection.classList.add("hidden");
+  coinFlipSection.classList.remove("hidden");
+  coinResultElem.textContent = "";
+  flipCoinBtn.disabled = false;
   historyBody.innerHTML = "";
-  scoreDisplay.textContent = "0 / 0";
-  oversDisplay.textContent = "0.0";
-}
-
-function showFinalScores() {
-  matchSection.classList.add("hidden");
-  finalScoreSection.classList.remove("hidden");
-
-  let resultText = `${teamAName} and ${teamBName} Match Summary:\n\n`;
-  resultText += `Innings 1 - Batting: ${innings === 1 ? battingTeam : bowlingTeam}\nRuns: ${runs} / ${wickets} in ${completedOvers}.${ballsInCurrentOver} overs\n`;
-
-  // You might want to save innings 1 & 2 separately if you want better summary,
-  // but for now just basic message.
-
-  finalScoresDiv.textContent = resultText + "\nMatch Over!";
-}
+  updateUI();
+});
