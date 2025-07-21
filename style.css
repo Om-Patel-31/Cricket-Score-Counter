@@ -1,67 +1,124 @@
 body {
-  background-color: #f4f8fb;
-  font-family: 'Segoe UI', sans-serif;
-  color: #333;
+  background: #f0f4f8;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #222;
   margin: 0;
-  padding: 0;
+  padding: 2rem;
 }
 
 .container {
-  max-width: 500px;
-  margin: 2rem auto;
+  max-width: 700px;
+  margin: 0 auto;
+  background: white;
   padding: 2rem;
-  background-color: white;
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  box-shadow: 0 0 15px rgba(0,0,0,0.1);
 }
 
 h1 {
   text-align: center;
-  color: #0a5c88;
+  margin-bottom: 1.5rem;
+  color: #0b4a6f;
 }
 
 .input-section label {
   display: block;
-  margin-top: 10px;
-  font-weight: bold;
+  margin-top: 1rem;
+  font-weight: 600;
 }
 
-.input-section input {
+.input-section input,
+.players-info select {
   width: 100%;
   padding: 8px;
-  margin-bottom: 10px;
+  margin-top: 5px;
   border-radius: 6px;
   border: 1px solid #ccc;
-}
-
-.score-section {
-  text-align: center;
-  margin-top: 1rem;
-}
-
-.score-section p {
-  font-size: 1.1rem;
-  margin: 0.5rem 0;
-}
-
-.button-section {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 10px;
-  margin-top: 1.5rem;
-}
-
-.button-section button {
-  padding: 10px;
   font-size: 1rem;
-  background-color: #0a5c88;
-  color: white;
+}
+
+button {
+  background: #0b4a6f;
   border: none;
+  padding: 10px 15px;
+  color: white;
+  font-weight: 600;
   border-radius: 8px;
   cursor: pointer;
+  margin-top: 1rem;
   transition: background-color 0.3s ease;
 }
 
-.button-section button:hover {
-  background-color: #084b6a;
+button:hover {
+  background: #083751;
+}
+
+.hidden {
+  display: none;
+}
+
+.match-section .innings-info h2,
+.match-section .innings-info h3 {
+  margin: 0.5rem 0;
+}
+
+.players-info {
+  display: flex;
+  justify-content: space-between;
+  margin: 1rem 0;
+  gap: 1rem;
+}
+
+.players-info div {
+  flex: 1;
+}
+
+.score-info {
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin: 1rem 0;
+  text-align: center;
+}
+
+.buttons {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 10px;
+  margin-bottom: 1rem;
+}
+
+.history-section table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+}
+
+.history-section th, .history-section td {
+  border: 1px solid #ccc;
+  padding: 6px 8px;
+  text-align: center;
+}
+
+.end-innings-btn, .reset-btn, #resetMatchBtn {
+  background: #b02a37;
+  width: 100%;
+  margin-top: 1rem;
+}
+
+.end-innings-btn:hover, .reset-btn:hover, #resetMatchBtn:hover {
+  background: #7c1b22;
+}
+
+.final-score {
+  text-align: center;
+}
+
+.final-score h2 {
+  margin-bottom: 1rem;
+}
+
+.final-score div {
+  font-size: 1.1rem;
+  line-height: 1.5;
+  white-space: pre-wrap;
 }

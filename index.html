@@ -1,47 +1,91 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" >
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Cricket Score Counter</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Advanced Cricket Score Counter</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <div class="container">
-    <h1>Cricket Score Counter</h1>
+    <h1>Advanced Cricket Score Counter</h1>
 
-    <div class="input-section">
-      <label for="teamName">Team Name:</label>
-      <input type="text" id="teamName" placeholder="Enter team name">
+    <section class="input-section">
+      <label for="teamAName">Team A Name:</label>
+      <input type="text" id="teamAName" placeholder="Enter Team A Name" />
 
-      <label for="player1">Player 1 Name:</label>
-      <input type="text" id="player1" placeholder="Enter striker's name">
+      <label for="teamBName">Team B Name:</label>
+      <input type="text" id="teamBName" placeholder="Enter Team B Name" />
 
-      <label for="player2">Player 2 Name:</label>
-      <input type="text" id="player2" placeholder="Enter non-striker's name">
+      <label for="teamAPlayers">Team A Players (comma separated):</label>
+      <input type="text" id="teamAPlayers" placeholder="Alice, Bob, Charlie, ..." />
+
+      <label for="teamBPlayers">Team B Players (comma separated):</label>
+      <input type="text" id="teamBPlayers" placeholder="David, Emma, Frank, ..." />
 
       <label for="oversCount">Total Overs:</label>
-      <input type="number" id="oversCount" placeholder="Enter total overs">
-    </div>
+      <input type="number" id="oversCount" placeholder="Enter total overs" min="1" max="50" />
 
-    <div class="score-section">
-      <h2 id="teamDisplay">Team: -</h2>
-      <p><strong>Players:</strong> <span id="playerDisplay">- & -</span></p>
-      <p><strong>Score:</strong> <span id="score">0</span> / <span id="wickets">0</span></p>
-      <p><strong>Overs:</strong> <span id="overCount">0</span>.<span id="ballCount">0</span></p>
-    </div>
+      <button id="startMatchBtn">Start Match</button>
+    </section>
 
-    <div class="button-section">
-      <button onclick="addRun(0)">0</button>
-      <button onclick="addRun(1)">1</button>
-      <button onclick="addRun(2)">2</button>
-      <button onclick="addRun(3)">3</button>
-      <button onclick="addRun(4)">4</button>
-      <button onclick="addRun(6)">6</button>
-      <button onclick="addWicket()">Wicket</button>
-      <button onclick="nextBall()">Next Ball</button>
-      <button onclick="reset()">Reset</button>
-    </div>
+    <section class="match-section hidden">
+      <div class="innings-info">
+        <h2>Innings: <span id="currentInnings">1</span></h2>
+        <h3>Batting: <span id="battingTeamName"></span></h3>
+        <h3>Bowling: <span id="bowlingTeamName"></span></h3>
+      </div>
+
+      <div class="players-info">
+        <div>
+          <h4>Batsmen</h4>
+          <p><strong>Striker:</strong> <span id="strikerName"></span> - Runs: <span id="strikerRuns">0</span> Balls: <span id="strikerBalls">0</span></p>
+          <p><strong>Non-Striker:</strong> <span id="nonStrikerName"></span> - Runs: <span id="nonStrikerRuns">0</span> Balls: <span id="nonStrikerBalls">0</span></p>
+        </div>
+        <div>
+          <h4>Bowler</h4>
+          <label for="bowlerSelect">Select Bowler:</label>
+          <select id="bowlerSelect"></select>
+          <p>Runs Given: <span id="bowlerRuns">0</span> | Wickets: <span id="bowlerWickets">0</span></p>
+        </div>
+      </div>
+
+      <div class="score-info">
+        <p><strong>Score:</strong> <span id="scoreDisplay">0 / 0</span></p>
+        <p><strong>Overs:</strong> <span id="oversDisplay">0.0</span></p>
+      </div>
+
+      <div class="buttons">
+        <button onclick="addRuns(0)">0</button>
+        <button onclick="addRuns(1)">1</button>
+        <button onclick="addRuns(2)">2</button>
+        <button onclick="addRuns(3)">3</button>
+        <button onclick="addRuns(4)">4</button>
+        <button onclick="addRuns(6)">6</button>
+        <button onclick="addExtra('wide')">Wide</button>
+        <button onclick="addExtra('noball')">No Ball</button>
+        <button onclick="addWicket()">Wicket</button>
+      </div>
+
+      <div class="history-section">
+        <h3>Ball-by-Ball History</h3>
+        <table>
+          <thead>
+            <tr><th>Over</th><th>Ball</th><th>Event</th><th>Score</th></tr>
+          </thead>
+          <tbody id="historyBody"></tbody>
+        </table>
+      </div>
+
+      <button id="endInningsBtn" class="end-innings-btn">End Innings</button>
+      <button id="resetBtn" class="reset-btn">Reset Match</button>
+    </section>
+
+    <section class="final-score hidden">
+      <h2>Match Complete!</h2>
+      <div id="finalScores"></div>
+      <button id="resetMatchBtn">Start New Match</button>
+    </section>
   </div>
 
   <script src="script.js"></script>
