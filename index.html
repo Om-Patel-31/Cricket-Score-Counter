@@ -1,58 +1,65 @@
 <!DOCTYPE html>
-<html lang="en" >
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Simple Cricket Scorer with Coin Flip</title>
+  <title>Cricket Scoreboard with Toss</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <div class="container">
-    <h1>Simple Cricket Scorer</h1>
 
-    <div id="coinFlipSection" class="coin-flip-section">
+    <h1>Cricket Scoreboard</h1>
+
+    <!-- Toss Section -->
+    <section id="coinFlipSection" class="coin-flip-section">
       <button id="flipCoinBtn" class="btn-primary">Flip a Coin</button>
-      <div id="coin" class="coin hidden">
+      <div id="coin" class="coin" aria-hidden="true">
         <div class="side heads">Heads</div>
         <div class="side tails">Tails</div>
       </div>
-      <div id="coinResult" class="coin-result"></div>
-    </div>
+      <div id="coinResult" class="coin-result" role="status" aria-live="polite"></div>
+    </section>
 
-    <div id="inputSection" class="input-section hidden">
-      <label for="batsman1Name">Striker Name (required):</label>
-      <input type="text" id="batsman1Name" placeholder="Enter striker name" />
-      
-      <label for="batsman2Name">Non-Striker Name (optional):</label>
-      <input type="text" id="batsman2Name" placeholder="Enter non-striker name (optional)" />
-      
-      <label for="bowlerName">Bowler Name (required):</label>
-      <input type="text" id="bowlerName" placeholder="Enter bowler name" />
-      
-      <button id="setPlayersBtn">Set Players</button>
-    </div>
+    <!-- Inputs Section -->
+    <section id="inputSection" class="hidden">
+      <div class="form-group">
+        <label for="batsman1Name">Batsman 1 (Striker) <span class="required">*</span>:</label>
+        <input type="text" id="batsman1Name" placeholder="Enter striker's name" required />
+      </div>
+      <div class="form-group">
+        <label for="batsman2Name">Batsman 2 (Non-Striker) (optional):</label>
+        <input type="text" id="batsman2Name" placeholder="Enter non-striker's name" />
+      </div>
+      <div class="form-group">
+        <label for="bowlerName">Bowler <span class="required">*</span>:</label>
+        <input type="text" id="bowlerName" placeholder="Enter bowler's name" required />
+      </div>
+      <button id="startMatchBtn" class="btn-primary">Start Match</button>
+    </section>
 
-    <div id="scoreSection" class="hidden">
+    <!-- Scoreboard Section -->
+    <section id="scoreSection" class="hidden">
       <h2>Live Score</h2>
-      <p><strong>Score:</strong> <span id="scoreDisplay">0 / 0</span></p>
-      <p><strong>Overs:</strong> <span id="oversDisplay">0.0</span></p>
+      <div id="scoreDisplay" class="score-display">0 / 0</div>
+      <div id="oversDisplay" class="overs-display">0.0</div>
 
       <div class="player-stats">
         <div>
-          <h3>Striker: <span id="liveBatsman1Name"></span></h3>
-          <p>Runs: <span id="batsman1Runs">0</span> | Balls: <span id="batsman1Balls">0</span></p>
-        </div>
-        <div id="nonStrikerStatsDiv">
-          <h3>Non-Striker: <span id="liveBatsman2Name"></span></h3>
-          <p>Runs: <span id="batsman2Runs">0</span> | Balls: <span id="batsman2Balls">0</span></p>
+          <strong>Batsman 1 (Striker):</strong> <span id="batsman1Display"></span><br />
+          Runs: <span id="batsman1Runs">0</span> &nbsp; Balls: <span id="batsman1Balls">0</span>
         </div>
         <div>
-          <h3>Bowler: <span id="liveBowlerName"></span></h3>
-          <p>Runs Given: <span id="bowlerRuns">0</span> | Wickets: <span id="bowlerWickets">0</span></p>
+          <strong>Batsman 2 (Non-Striker):</strong> <span id="batsman2Display">-</span><br />
+          Runs: <span id="batsman2Runs">0</span> &nbsp; Balls: <span id="batsman2Balls">0</span>
+        </div>
+        <div>
+          <strong>Bowler:</strong> <span id="bowlerDisplay"></span><br />
+          Runs conceded: <span id="bowlerRuns">0</span> &nbsp; Wickets: <span id="bowlerWickets">0</span>
         </div>
       </div>
 
-      <div class="buttons">
+      <div class="score-buttons">
         <button onclick="addRuns(0)">0</button>
         <button onclick="addRuns(1)">1</button>
         <button onclick="addRuns(2)">2</button>
@@ -65,15 +72,16 @@
       </div>
 
       <h3>Ball-by-Ball History</h3>
-      <table>
+      <table class="historyTable" aria-label="Ball-by-ball history">
         <thead>
           <tr><th>Over</th><th>Ball</th><th>Event</th><th>Score</th></tr>
         </thead>
         <tbody id="historyBody"></tbody>
       </table>
 
-      <button id="resetBtn">Reset</button>
-    </div>
+      <button id="resetBtn" class="btn-danger">Reset Match</button>
+    </section>
+
   </div>
 
   <script src="script.js"></script>
