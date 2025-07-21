@@ -3,51 +3,61 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Advanced Cricket Score Counter</title>
+  <title>Cricket Score Counter</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <div class="container">
-    <h1>Advanced Cricket Score Counter</h1>
+    <h1>Cricket Score Counter</h1>
 
-    <section class="input-section">
-      <label for="teamAName">Team A Name:</label>
-      <input type="text" id="teamAName" placeholder="Enter Team A Name" />
-
-      <label for="teamBName">Team B Name:</label>
-      <input type="text" id="teamBName" placeholder="Enter Team B Name" />
-
-      <label for="teamAPlayers">Team A Players (comma separated):</label>
-      <input type="text" id="teamAPlayers" placeholder="Alice, Bob, Charlie, ..." />
-
-      <label for="teamBPlayers">Team B Players (comma separated):</label>
-      <input type="text" id="teamBPlayers" placeholder="David, Emma, Frank, ..." />
-
-      <label for="oversCount">Total Overs:</label>
-      <input type="number" id="oversCount" placeholder="Enter total overs" min="1" max="50" />
-
-      <button id="startMatchBtn">Start Match</button>
+    <!-- Step 1: Team Names Input -->
+    <section id="teamInputSection">
+      <h2>Enter Team Names</h2>
+      <form id="teamForm" novalidate>
+        <div class="form-group">
+          <label for="teamAName">Team A Name:</label>
+          <input type="text" id="teamAName" placeholder="Team A" required />
+        </div>
+        <div class="form-group">
+          <label for="teamBName">Team B Name:</label>
+          <input type="text" id="teamBName" placeholder="Team B" required />
+        </div>
+        <button type="button" id="toTossBtn" class="btn-primary">Next: Toss</button>
+      </form>
     </section>
 
-    <section class="match-section hidden">
+    <!-- Toss Section -->
+    <section id="tossSection" class="hidden">
+      <h2>Flip the Coin for Toss</h2>
+      <button id="flipCoinBtn">Flip Coin</button>
+      <p id="tossResult"></p>
+
+      <div id="chooseBatOrBowl" class="hidden">
+        <p><strong>Toss Winner:</strong> <span id="tossWinner"></span></p>
+        <label>
+          <input type="radio" name="batOrBowl" value="bat" checked /> Bat First
+        </label>
+        <label>
+          <input type="radio" name="batOrBowl" value="bowl" /> Bowl First
+        </label>
+        <br />
+        <button id="startMatchBtn" disabled>Start Match</button>
+      </div>
+    </section>
+
+    <!-- Match Section -->
+    <section id="matchSection" class="hidden">
       <div class="innings-info">
         <h2>Innings: <span id="currentInnings">1</span></h2>
         <h3>Batting: <span id="battingTeamName"></span></h3>
         <h3>Bowling: <span id="bowlingTeamName"></span></h3>
       </div>
 
-      <div class="players-info">
-        <div>
-          <h4>Batsmen</h4>
-          <p><strong>Striker:</strong> <span id="strikerName"></span> - Runs: <span id="strikerRuns">0</span> Balls: <span id="strikerBalls">0</span></p>
-          <p><strong>Non-Striker:</strong> <span id="nonStrikerName"></span> - Runs: <span id="nonStrikerRuns">0</span> Balls: <span id="nonStrikerBalls">0</span></p>
-        </div>
-        <div>
-          <h4>Bowler</h4>
-          <label for="bowlerSelect">Select Bowler:</label>
-          <select id="bowlerSelect"></select>
-          <p>Runs Given: <span id="bowlerRuns">0</span> | Wickets: <span id="bowlerWickets">0</span></p>
-        </div>
+      <div class="bowler-input">
+        <label for="bowlerNameInput">Current Bowler Name:</label>
+        <input type="text" id="bowlerNameInput" placeholder="Bowler name" />
+        <button id="setBowlerBtn">Set Bowler</button>
+        <p>Runs conceded by bowler: <span id="bowlerRuns">0</span> | Wickets: <span id="bowlerWickets">0</span></p>
       </div>
 
       <div class="score-info">
@@ -77,11 +87,11 @@
         </table>
       </div>
 
-      <button id="endInningsBtn" class="end-innings-btn">End Innings</button>
-      <button id="resetBtn" class="reset-btn">Reset Match</button>
+      <button id="endInningsBtn">End Innings</button>
+      <button id="resetBtn">Reset Match</button>
     </section>
 
-    <section class="final-score hidden">
+    <section id="finalScoreSection" class="hidden">
       <h2>Match Complete!</h2>
       <div id="finalScores"></div>
       <button id="resetMatchBtn">Start New Match</button>
