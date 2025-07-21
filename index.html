@@ -2,82 +2,48 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Stratford Strikers Cricket Score</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Cricket Score Counter</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <div class="container">
+    <h1>Cricket Score Counter</h1>
 
-    <!-- Step 1: Team Names & Overs -->
-    <section id="step1" class="step active">
-      <h2>Enter Team Details</h2>
-      <form id="teamDetailsForm" novalidate>
-        <div class="form-group">
-          <label for="teamAName">Team A Name:</label>
-          <input type="text" id="teamAName" placeholder="e.g. Stratford Strikers" required />
-        </div>
-        <div class="form-group">
-          <label for="teamAPlayers">Team A Players (comma separated):</label>
-          <input type="text" id="teamAPlayers" placeholder="e.g. Alice, Bob, Charlie" required />
-        </div>
-        <div class="form-group">
-          <label for="teamBName">Team B Name:</label>
-          <input type="text" id="teamBName" placeholder="e.g. Rivals" required />
-        </div>
-        <div class="form-group">
-          <label for="teamBPlayers">Team B Players (comma separated):</label>
-          <input type="text" id="teamBPlayers" placeholder="e.g. Dave, Emma, Frank" required />
-        </div>
-        <div class="form-group">
-          <label for="oversCount">Overs:</label>
-          <input type="number" id="oversCount" min="1" max="50" required />
-        </div>
-        <button type="button" id="toStep3" class="btn-primary">Next</button>
-      </form>
-    </section>
+    <div class="input-section">
+      <label for="teamName">Team Name:</label>
+      <input type="text" id="teamName" placeholder="Enter team name">
 
-    <!-- Step 3: Toss & Batting Team -->
-    <section id="step3" class="step">
-      <h2>Toss Winner & Batting Team</h2>
-      <form id="tossForm" novalidate>
-        <div class="form-group">
-          <label for="tossWinner">Toss Winner:</label>
-          <select id="tossWinner" required></select>
-        </div>
-        <div class="form-group">
-          <label for="battingTeam">Batting Team:</label>
-          <select id="battingTeam" required></select>
-        </div>
-        <div class="form-actions">
-          <button type="button" id="backToStep1" class="btn-secondary">Back</button>
-          <button type="button" id="toStep4" class="btn-primary">Start Match</button>
-        </div>
-      </form>
-    </section>
+      <label for="player1">Player 1 Name:</label>
+      <input type="text" id="player1" placeholder="Enter striker's name">
 
+      <label for="player2">Player 2 Name:</label>
+      <input type="text" id="player2" placeholder="Enter non-striker's name">
+
+      <label for="oversCount">Total Overs:</label>
+      <input type="number" id="oversCount" placeholder="Enter total overs">
+    </div>
+
+    <div class="score-section">
+      <h2 id="teamDisplay">Team: -</h2>
+      <p><strong>Players:</strong> <span id="playerDisplay">- & -</span></p>
+      <p><strong>Score:</strong> <span id="score">0</span> / <span id="wickets">0</span></p>
+      <p><strong>Overs:</strong> <span id="overCount">0</span>.<span id="ballCount">0</span></p>
+    </div>
+
+    <div class="button-section">
+      <button onclick="addRun(0)">0</button>
+      <button onclick="addRun(1)">1</button>
+      <button onclick="addRun(2)">2</button>
+      <button onclick="addRun(3)">3</button>
+      <button onclick="addRun(4)">4</button>
+      <button onclick="addRun(6)">6</button>
+      <button onclick="addWicket()">Wicket</button>
+      <button onclick="nextBall()">Next Ball</button>
+      <button onclick="reset()">Reset</button>
+    </div>
   </div>
-  <script>
-    const teamAInput = document.getElementById("teamAName");
-    const teamBInput = document.getElementById("teamBName");
-    const tossSelect = document.getElementById("tossWinner");
-    const battingSelect = document.getElementById("battingTeam");
 
-    document.getElementById("toStep3").addEventListener("click", () => {
-      if (teamAInput.value && teamBInput.value) {
-        tossSelect.innerHTML = `<option value="${teamAInput.value}">${teamAInput.value}</option><option value="${teamBInput.value}">${teamBInput.value}</option>`;
-        battingSelect.innerHTML = tossSelect.innerHTML;
-        document.getElementById("step1").classList.remove("active");
-        document.getElementById("step3").classList.add("active");
-      } else {
-        alert("Please enter both team names.");
-      }
-    });
-
-    document.getElementById("backToStep1").addEventListener("click", () => {
-      document.getElementById("step3").classList.remove("active");
-      document.getElementById("step1").classList.add("active");
-    });
-  </script>
+  <script src="script.js"></script>
 </body>
 </html>

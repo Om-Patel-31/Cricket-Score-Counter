@@ -1,128 +1,67 @@
 body {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background: #f9fafb;
+  background-color: #f4f8fb;
+  font-family: 'Segoe UI', sans-serif;
   color: #333;
   margin: 0;
-  padding: 20px;
+  padding: 0;
 }
 
 .container {
-  max-width: 700px;
-  margin: 0 auto;
-  background: white;
-  box-shadow: 0 0 10px rgba(0,0,0,0.1);
-  border-radius: 8px;
-  padding: 20px;
+  max-width: 500px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background-color: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
-h2 {
+h1 {
   text-align: center;
-  margin-bottom: 1rem;
+  color: #0a5c88;
 }
 
-.form-group {
-  margin-bottom: 15px;
-}
-
-input[type="text"],
-input[type="number"],
-select {
-  width: 100%;
-  padding: 8px 12px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  font-size: 1rem;
-}
-
-button {
-  cursor: pointer;
-  border: none;
-  border-radius: 4px;
-  padding: 10px 20px;
-  font-weight: 600;
-}
-
-.btn-primary {
-  background-color: #0069d9;
-  color: white;
-}
-.btn-primary:hover {
-  background-color: #004a9f;
-}
-
-.btn-secondary {
-  background-color: #6c757d;
-  color: white;
-}
-.btn-secondary:hover {
-  background-color: #565e64;
-}
-
-.btn-danger {
-  background-color: #dc3545;
-  color: white;
-  width: 100%;
-  margin-top: 15px;
-}
-.btn-danger:hover {
-  background-color: #a71d2a;
-}
-
-.form-actions {
-  display: flex;
-  justify-content: space-between;
-  margin-top: 20px;
-}
-
-.step {
-  display: none;
-}
-.step.active {
+.input-section label {
   display: block;
+  margin-top: 10px;
+  font-weight: bold;
 }
 
-.liveInfo {
-  display: flex;
-  justify-content: space-around;
-  margin-bottom: 1rem;
-  font-size: 1.1rem;
-}
-
-.playerStats {
-  display: flex;
-  justify-content: space-around;
-  margin-bottom: 1rem;
-}
-
-.playerCard {
-  background: #f1f5f9;
-  padding: 10px;
+.input-section input {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 10px;
   border-radius: 6px;
-  width: 30%;
+  border: 1px solid #ccc;
+}
+
+.score-section {
   text-align: center;
+  margin-top: 1rem;
 }
 
-.scoreButtons button {
-  margin: 5px 5px 10px 0;
-  padding: 12px 18px;
+.score-section p {
+  font-size: 1.1rem;
+  margin: 0.5rem 0;
+}
+
+.button-section {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  margin-top: 1.5rem;
+}
+
+.button-section button {
+  padding: 10px;
   font-size: 1rem;
-  border-radius: 6px;
-  background-color: #007bff;
+  background-color: #0a5c88;
   color: white;
   border: none;
-}
-.scoreButtons button:hover {
-  background-color: #0056b3;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
-.historyTable {
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: 15px;
-}
-.historyTable th,
-.historyTable td {
-  border: 1px solid #ccc;
-  padding: 8px;
-  text-align: center;
+.button-section button:hover {
+  background-color: #084b6a;
 }
